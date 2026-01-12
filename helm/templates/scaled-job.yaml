@@ -9,7 +9,7 @@ spec:
         labels:
           azure.workload.identity/use: "true"
       spec:
-        serviceAccountName: {{ .Values.serviceAccount.name }}
+        serviceAccountName: {{ .Values.serviceAccount.name | lower }}
         containers:
         - image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
           name: myconsumer
