@@ -1,0 +1,13 @@
+image:
+  repository: ""
+  tag: ""
+  
+serviceBus:
+  namespace: ""
+
+storageAccount:
+  name: ""
+
+serviceAccount:
+  name: ""
+  managedIdentityId: ""
