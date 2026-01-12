@@ -1,13 +1,22 @@
+# Consumer container image
 image:
   repository: ""
   tag: ""
-  
+
+autoscaling:
+  # Count of messages to trigger scaling on
+  messageCount: 10
+
+# The Kubernetes service account used by the consumer
+serviceAccount:
+  name: ""
+  # The ID of the Azure Managed Identity used by the service account
+  managedIdentityId: ""
+
+# Azure service bus
 serviceBus:
   namespace: ""
 
+# Azure storage account to store the consumed messages in
 storageAccount:
   name: ""
-
-serviceAccount:
-  name: ""
-  managedIdentityId: ""

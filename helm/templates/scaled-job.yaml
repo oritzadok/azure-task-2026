@@ -28,6 +28,6 @@ spec:
     metadata:
       queueName: myqueue
       namespace: {{ .Values.serviceBus.namespace }}
-      messageCount: "10"
+      messageCount: {{ .Values.autoscaling.messageCount }}
     authenticationRef:
       name: azure-servicebus-auth
