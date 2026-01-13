@@ -11,23 +11,31 @@ spec:
       spec:
         serviceAccountName: {{ .Values.serviceAccount.name | lower }}
         containers:
-        - image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
+        - image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           name: myconsumer
           env:
           - name: OPERATION_MODE
             value: "consumer"
           - name: MESSAGE_COUNT
-            value: "10"
+            value: {{ .Values.autoscaling.messageCount | quote }}
           - name: AZURE_SERVICEBUS_QUEUE_NAME
             value: myqueue
           - name: AZURE_SERVICEBUS_HOSTNAME
             value: {{ .Values.serviceBus.namespace }}.servicebus.windows.net
+          resources:
+          {{- toYaml .Values.resources | nindent 12 }}
         restartPolicy: Never
+        nodeSelector:
+          app: service-bus-consumer
+        tolerations:
+        - key: "app/service-bus-consumer"
+          operator: "Exists"
+          effect: "NoSchedule"
   triggers:
   - type: azure-servicebus
     metadata:
       queueName: myqueue
       namespace: {{ .Values.serviceBus.namespace }}
-      messageCount: {{ .Values.autoscaling.messageCount }}
+      messageCount: {{ .Values.autoscaling.messageCount | quote }}
     authenticationRef:
       name: azure-servicebus-auth

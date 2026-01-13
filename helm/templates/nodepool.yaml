@@ -17,7 +17,7 @@ spec:
         name: default
       # Ensure cluster pods other than the chart's application won't schedule on this nodepool
       taints:
-        - key: example.com/special-taint
+        - key: app/service-bus-consumer
           effect: NoSchedule
       startupTaints:
         # https://karpenter.sh/docs/concepts/nodepools/#cilium-startup-taint

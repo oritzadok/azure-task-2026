@@ -3,13 +3,17 @@ image:
   repository: ""
   tag: ""
 
+# Resource limits and requests for the container
+resources: {}
+
 autoscaling:
-  # Count of messages to trigger scaling on
-  messageCount: 10
+  # Count of messages to trigger scaling on.
+  # Used also as the maximum amount of messages the pod will consume
+  messageCount: ""
 
 # The Kubernetes service account used by the consumer
 serviceAccount:
-  name: ""
+  name: "servicebususers"
   # The ID of the Azure Managed Identity used by the service account
   managedIdentityId: ""
 
