@@ -14,14 +14,12 @@ spec:
         - image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           name: myconsumer
           env:
-          - name: OPERATION_MODE
-            value: "consumer"
+          - name: SERVICEBUS_FULLY_QUALIFIED_NAMESPACE
+            value: {{ .Values.serviceBus.namespace }}.servicebus.windows.net
           - name: MESSAGE_COUNT
             value: {{ .Values.autoscaling.messageCount | quote }}
-          - name: AZURE_SERVICEBUS_QUEUE_NAME
-            value: myqueue
-          - name: AZURE_SERVICEBUS_HOSTNAME
-            value: {{ .Values.serviceBus.namespace }}.servicebus.windows.net
+          - name: STORAGE_ACCOUNT_URL
+            value: https://{{ .Values.storageAccount.name }}.blob.core.windows.net
           resources:
           {{- toYaml .Values.resources | nindent 12 }}
         restartPolicy: Never
