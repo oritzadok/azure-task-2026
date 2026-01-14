@@ -1,10 +1,8 @@
 resource "azurerm_kubernetes_cluster" "cluster" {
-#  name                = "${var.resource_group_name}Cluster"
-  name                = "MyApp"
+  name                = "${var.resource_group_name}Cluster"
   location            = azurerm_resource_group.rg.location
   resource_group_name = azurerm_resource_group.rg.name
-#  dns_prefix          = "${var.resource_group_name}Cluster-dns"
-  dns_prefix          = "MyApp-dns"
+  dns_prefix          = "${var.resource_group_name}Cluster-dns"
 
   default_node_pool {
     name       = "agentpool"
