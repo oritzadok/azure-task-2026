@@ -4,3 +4,4 @@ terraform.tfstate*
 .terraform/
 __pycache__/
 venv/
+kubeconfig_temp

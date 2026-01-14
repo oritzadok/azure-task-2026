@@ -9,3 +9,8 @@ variable "resource_group_location" {
 variable "storage_account_name" {
   default = "myapp1234"
 }
+
+variable "k8s_namespace" {
+  description = "Kubernetes namespace within the AKS cluster to dpeloy the app in"
+  default = "my-app"
+}
