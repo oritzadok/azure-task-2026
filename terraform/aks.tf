@@ -122,7 +122,7 @@ resource "azurerm_federated_identity_credential" "consumer" {
 resource "azurerm_role_assignment" "consumer_roles" {
   for_each = {
     "servicebus1"    = { role = "Azure Service Bus Data Owner", scope = azurerm_servicebus_namespace.sb.id }
-    "storageaccount1 = { role = "Storage Blob Data Contributor", scope = azurerm_storage_account.sa.id }
+    "storageaccount1" = { role = "Storage Blob Data Contributor", scope = azurerm_storage_account.sa.id }
   }
   principal_id         = azurerm_user_assigned_identity.consumer.principal_id
   role_definition_name = each.value.role

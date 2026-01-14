@@ -13,7 +13,7 @@ autoscaling:
 
 # The Kubernetes service account used by the consumer
 serviceAccount:
-  name: "servicebususers"
+  name: "consumer"
   # The ID of the Azure Managed Identity used by the service account
   managedIdentityId: ""
 

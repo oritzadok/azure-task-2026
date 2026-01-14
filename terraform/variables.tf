@@ -11,6 +11,10 @@ variable "storage_account_name" {
 }
 
 variable "k8s_namespace" {
-  description = "Kubernetes namespace within the AKS cluster to dpeloy the app in"
-  default = "my-app"
+  description = "Kubernetes namespace within the AKS cluster to deploy the app"
+  default     = "my-app"
+}
+
+variable "git_repo" {
+  description = "URL of this Git repository"
 }
