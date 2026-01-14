@@ -1,4 +1,4 @@
-The purpose of the project is to create an Azure AKS-native, scalable solution, that receives messages from a Service Bus queue and stores them in a blob container.
+The purpose of this project is to create an Azure AKS-native, scalable solution, that receives messages from a Service Bus queue and stores them in a blob container.
 
 It uses Terraform to perform the following:
 - Creating an Azure container registry
