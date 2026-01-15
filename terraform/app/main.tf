@@ -1,20 +1,3 @@
-resource "helm_release" "argocd" {
-  name             = "argocd"
-  repository       = "https://argoproj.github.io/argo-helm"
-  chart            = "argo-cd"
-  namespace        = "argocd"
-  create_namespace = true
-
-  # To expose Argo CD API server with an external IP
-  set = [
-    {
-      name  = "server.service.type"
-      value = "LoadBalancer"
-    }
-  ]
-}
-
-
 resource "kubernetes_manifest" "argocd_app" {
   manifest = {
     "apiVersion" = "argoproj.io/v1alpha1"
@@ -30,10 +13,12 @@ resource "kubernetes_manifest" "argocd_app" {
         "targetRevision" = "HEAD"
         "path"           = "helm"
         "helm"           = {
+          # Parameters are specified here for simplicity.
+          # In real world - use values file
           "parameters" = [
             {
               "name"  = "image.repository"
-              "value" = "${azurerm_container_registry.acr.login_server}/service-bus-consumer"
+              "value" = "${var.acr_repo}"
             },
             {
               "name"  = "image.tag"
@@ -65,22 +50,22 @@ resource "kubernetes_manifest" "argocd_app" {
             },
             {
               "name"  = "serviceAccount.managedIdentityId"
-              "value" = "${azurerm_user_assigned_identity.consumer.client_id}"
+              "value" = "${var.consumer_managed_identity}"
             },
             {
               "name"  = "serviceBus.namespace"
-              "value" = "${azurerm_servicebus_namespace.sb.name}"
+              "value" = "${var.service_bus_namespace}"
             },
             {
               "name"  = "storageAccount.name"
-              "value" = "${azurerm_storage_account.sa.name}"
+              "value" = "${var.storage_account}"
             },
           ]
         }
       }
       "destination" = {
         "server"    = "https://kubernetes.default.svc"
-        "namespace" = var.k8s_namespace
+        "namespace" = var.namespace
       }
       "syncPolicy" = {
         "automated" = {
@@ -93,12 +78,4 @@ resource "kubernetes_manifest" "argocd_app" {
       }
     }
   }
-
-  depends_on = [
-    null_resource.build_first_image_tag,
-    azurerm_role_assignment.aks_AcrPull,
-    null_resource.restart_keda_operator,
-    azurerm_role_assignment.keda_roles,
-    azurerm_role_assignment.consumer_roles
-  ] 
 }

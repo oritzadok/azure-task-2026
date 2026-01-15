@@ -12,13 +12,6 @@ resource "azurerm_container_registry" "acr" {
 }
 
 
-resource "null_resource" "build_first_image_tag" {
-  provisioner "local-exec" {
-    command = "./files/build_and_push.sh ${azurerm_container_registry.acr.name} ${azurerm_container_registry.acr.login_server}"
-  }
-}
-
-
 resource "azurerm_servicebus_namespace" "sb" {
   name                = "${var.resource_group_name}ServiceBus"
   resource_group_name = azurerm_resource_group.rg.name

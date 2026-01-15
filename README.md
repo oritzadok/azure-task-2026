@@ -1,11 +1,9 @@
 The purpose of this project is to create an Azure AKS-native, scalable solution, that receives messages from a Service Bus queue and stores them in a blob container.
 
 It uses Terraform to perform the following:
-- Creating an Azure container registry
+- Creating the Azure infrasrtucture: container registry, service bus, storage account, and a Kubernetes cluster with Karpenter and KEDA enabled
 - Building the Python code for message processing as a Docker image and pushing it to the registry
-- Creating the Azure Service Bus and Storage Account
-- Creating the Kubernetes cluster with Karpenter and KEDA enabled
-- Deploying the message processor as a ScaledJob, with a dedicated NodePool, using a Helm chart
+- Using Argo CD to deploy a Helm chart, containing the message processor as a ScaledJob, with a dedicated NodePool
 
 ### Prerequisites:
 
@@ -17,13 +15,13 @@ It uses Terraform to perform the following:
 ### Environment setup
 
 1. Login to your Azure subscription (`az login`)
-2. Provide the URL of this Git repository as a Terraform variable:
+2. Provide the URL of this Git repository as a Terraform variable for `terraform/app/` module:
 ```
-cat <<EOF > terraform/terraform.tfvars
+cat <<EOF > terraform/app/terraform.tfvars
 git_repo = "https://..."
 EOF
 ```
-Other variables in `terraform/variables.tf` are optional.
+Other variables in `terraform/infra/variables.tf` and `terraform/app/variables.tf`, such as resource group location, are optional.
 
 3.
 ```
@@ -31,11 +29,11 @@ export ARM_SUBSCRIPTION_ID=<your Azure subscription ID>
 ```
 4. Run:
 ```
-./deploy.sh
+./scripts/create_env.sh
 ```
 This will create the entire setup of the application using Terraform.
 
-The environment details will be displayed at the end as Terraform outputs.
+The environment details will be displayed at the end.
 
 #### Testing:
 In the Azure portal, go to the **Service Bus queue** and click on **Send messages**.
@@ -47,6 +45,6 @@ Then go to the **Storage Account container** and verify that a file with the mes
 
 Run:
 ```
-./delete.sh
+./scripts/delete_env.sh
 ```
 This will delete the Terraform setup.

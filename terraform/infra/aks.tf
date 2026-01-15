@@ -6,6 +6,7 @@ resource "azurerm_kubernetes_cluster" "cluster" {
 
   default_node_pool {
     name       = "agentpool"
+    node_count = 3
     vm_size    = "Standard_DS2_v2"
 
     upgrade_settings {

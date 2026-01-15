@@ -10,6 +10,14 @@ output "kubernetes_namespace" {
   value = var.k8s_namespace
 }
 
+output "acr_name" {
+  value = azurerm_container_registry.acr.name
+}
+
+output "acr_url" {
+  value = azurerm_container_registry.acr.login_server
+}
+
 output "service_bus_namespace" {
   value = azurerm_servicebus_namespace.sb.name
 }
@@ -24,4 +32,8 @@ output "storage_account" {
 
 output "storage_account_container" {
   value = azurerm_storage_container.c.name
+}
+
+output "consumer_managed_identity" {
+  value = azurerm_user_assigned_identity.consumer.client_id
 }

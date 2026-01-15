@@ -4,4 +4,5 @@ terraform.tfstate*
 .terraform/
 __pycache__/
 venv/
-kubeconfig_temp
+kubeconfig*
+values_override.yaml
