@@ -5,4 +5,4 @@ metadata:
 spec:
   podIdentity:
     provider:  azure-workload
-    identityId: {{ .Values.serviceAccount.managedIdentityId }}
+    identityId: {{ .Values.autoscaling.kedaManagedIdentityId }}

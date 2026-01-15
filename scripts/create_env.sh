@@ -19,6 +19,7 @@ service_bus_queue=$(terraform output -raw service_bus_queue)
 storage_account=$(terraform output -raw storage_account)
 storage_account_container=$(terraform output -raw storage_account_container)
 consumer_managed_identity=$(terraform output -raw consumer_managed_identity)
+keda_managed_identity=$(terraform output -raw keda_managed_identity)
 
 popd
 
@@ -48,6 +49,7 @@ echo "Preparing Helm values override file for workload deployment"
 cat <<EOF >> terraform.tfvars
 acr_repo = "${acr_repo}"
 consumer_managed_identity = "${consumer_managed_identity}"
+keda_managed_identity = "${keda_managed_identity}"
 service_bus_namespace = "${service_bus_namespace}"
 storage_account = "${storage_account}"
 EOF

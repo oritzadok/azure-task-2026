@@ -9,6 +9,8 @@ variable "namespace" {
 
 variable "acr_repo" {}
 
+variable "keda_managed_identity" {}
+
 variable "consumer_managed_identity" {}
 
 variable "service_bus_namespace" {}

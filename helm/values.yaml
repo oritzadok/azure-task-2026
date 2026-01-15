@@ -7,6 +7,9 @@ image:
 resources: {}
 
 autoscaling:
+  # The ID of the Azure Managed Identity used by KEDA to
+  # authenticate to the service bus
+  kedaManagedIdentityId: ""
   # Count of messages to trigger scaling on.
   # Used also as the maximum amount of messages the pod will consume
   messageCount: ""

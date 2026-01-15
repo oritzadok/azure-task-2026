@@ -37,3 +37,7 @@ output "storage_account_container" {
 output "consumer_managed_identity" {
   value = azurerm_user_assigned_identity.consumer.client_id
 }
+
+output "keda_managed_identity" {
+  value = azurerm_user_assigned_identity.keda.client_id
+}

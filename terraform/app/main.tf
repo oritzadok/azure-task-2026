@@ -41,6 +41,10 @@ resource "kubernetes_manifest" "argocd_app" {
               "value" = "128Mi"
             },
             {
+              "name"  = "autoscaling.kedaManagedIdentityId"
+              "value" = "${var.keda_managed_identity}"
+            },
+            {
               "name"  = "autoscaling.messageCount"
               "value" = "10"
             },
