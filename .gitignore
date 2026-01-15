@@ -5,4 +5,3 @@ terraform.tfstate*
 __pycache__/
 venv/
 kubeconfig*
-values_override.yaml
